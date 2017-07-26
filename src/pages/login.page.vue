@@ -3,6 +3,7 @@
     <input v-model="username" placeholder="请输入账号" />
     <input v-model="password" placeholder="请输入密码"/>
     <button @click="login">提交</button>
+    <button @click="list">get请求测试</button>
     <router-link to="/home">home</router-link>
   </div>
 
@@ -23,6 +24,20 @@ export default {
       this.$ajax.post( '/login', {
         username: this.username,
         password: this.password
+      })
+        .then( res => {
+
+        })
+        .catch( err => {
+          console.log(err)
+        });
+    },
+    list: function () {
+      this.$ajax.get( '/list', {
+          params: {
+            username: 'qweqweq',
+            password: 111111
+          }
       })
         .then( res => {
 

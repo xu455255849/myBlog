@@ -19,7 +19,7 @@ Vue.use(iView)
  * @type {string}
  */
 
-//axios.defaults.baseURL = 'http://192.168.1.5:8000';
+axios.defaults.baseURL = 'http://localhost:8888';
 //axios.defaults.baseURL = 'http://120.55.67.152:8000';
 //axios.defaults.headers =  {'Authorization':'Bearer '+ sessionStorage.getItem('token')}
 
