@@ -8,10 +8,9 @@ import axios from 'axios'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
-
-
 Vue.prototype.$ajax = axios
 Vue.use(iView)
+
 
 
 /**
