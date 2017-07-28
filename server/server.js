@@ -38,14 +38,56 @@ app.all('*', function(req, res, next) {
 
 
 /**
- * 请求接口 ／／／／／／／／／／／／／／
+ * 请求接口 ／／／／／／／／／／／／／／链接数据库
  */
+var MongoClient = require('mongodb').MongoClient;
+var DB_CONN_STR = 'mongodb://localhost:27017/blog';
+
+
+/**
+ * 获取文章列表
+ */
+app.get('/article/list', function (req, res) {
+  MongoClient.connect(DB_CONN_STR, function(err, db) {
+    var collection = db.collection('runboo');
+    collection.find({}).toArray(function(err, result) {
+      if(err)
+      {
+        console.log('Error:'+ err);
+        return;
+      }
+      console.log(result)
+      res.end(result)
+      db.close();
+    });
+
+  });
+/*  MongoClient.connect(DB_CONN_STR, function(err, db) {
+    var collection = db.collection('runboo');
+    //var data = db.col.find().pretty()
+
+    res.end('qqqq');
+    console.log(collection)
+    db.close();
+
+  })*/
+
+/*  var arg = url.parse(req.url).query;
+  var sss = qs.parse(arg);*/
+
+});
+
+
+
+
 app.get('/list', function (req, res) {
   // 输出 JSON 格式
   var arg = url.parse(req.url).query;
   var sss = qs.parse(arg);
   res.end(JSON.stringify(sss));
 });
+
+
 
 
 app.post('/login', function (req, res) {

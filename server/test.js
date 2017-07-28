@@ -96,7 +96,7 @@ MongoClient.connect(DB_CONN_STR, function(err, db) {
 });
 
 /**
- * 更新数据
+ * 删除数据
  */
 
 var MongoClient = require('mongodb').MongoClient;

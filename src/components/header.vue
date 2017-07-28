@@ -72,7 +72,25 @@
           float: left;
         }
         li:hover {
+          animation: navlink 1s linear
+        }
 
+        @keyframes navlink {
+          0% {
+            transform: translateX(0px) rotate(0deg)
+          }
+          25% {
+            transform:  translateX(-5px) rotate(30deg);
+            color: greenyellow;
+          }
+          50% {
+            transform:  translateX(5px) rotate(-30deg);
+            color: deepskyblue;
+          }
+          100% {
+            transform:  translateX(0px)  rotate(0deg);
+            color: hotpink;
+          }
         }
       }
       img {
