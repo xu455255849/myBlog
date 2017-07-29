@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Start from '../pages/start.vue'
 import Home from  '../pages/home.vue'
+import Publish from '../pages/publish.vue'
 
 
 Vue.use(Router)
@@ -19,6 +20,11 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/publish',
+      name: 'publish',
+      component: Publish
     }
 
   ]

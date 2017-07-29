@@ -16,7 +16,10 @@
   "dependencies": {
     "axios": "^0.16.2",
     "iview": "^2.0.0-rc.19",
+    "marked": "^0.3.6",
     "mongodb": "^2.2.30",
+    "mongoskin": "^2.1.0",
+    "multer": "^1.3.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "vue": "^2.3.3",
