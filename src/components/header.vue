@@ -65,6 +65,7 @@
       }
       ul {
         li {
+          display: inline-block;
           height: 60px;
           color: #fff;
           margin-right: 20px;
@@ -74,7 +75,6 @@
         li:hover {
           animation: navlink 1s linear
         }
-
         @keyframes navlink {
           0% {
             transform: translateX(0px) rotate(0deg)

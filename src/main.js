@@ -14,7 +14,7 @@ Vue.use(iView)
 
 
 /**
- * url地址修改 custom && entity
+ * url地址修改 home &&
  * @type {string}
  */
 

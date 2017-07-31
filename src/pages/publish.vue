@@ -50,10 +50,9 @@
       </Col>
     </Row>
     <Modal v-model="preview"
-           width="500"
+           width="900"
            title="LOGO预览"
     >
-
       <div style="text-align:center">
         <img :src="previewUrl" />
       </div>
@@ -95,10 +94,25 @@
         this.preview = false
       },
       submit: function () {
+          this.$ajax.post('/article/publish', {
+            title: this.title,
+            intro: this.intro,
+            content: this.input,
+            imgPath: this.logo,
+            time: this.date
+          })
+            .then( res => {
+                this.$Message.success('发布成功');
+                setTimeout(function () {
+                    location.reload()
+                }, 2000)
+            })
+            .catch( err => {
+              console.log(err)
+            });
 
       },
       handleSuccess (res, file) {
-        console.log(res)
         this.check ++
         this.logo = res.path;
       },
@@ -124,7 +138,6 @@
         return check;
       },
       handlePreview (file) {
-        console.log(file.response);
         let path = file.response.path.slice(6);
         this.previewUrl = this.$ajax.defaults.baseURL + path;
         this.preview = true

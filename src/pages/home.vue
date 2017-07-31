@@ -3,24 +3,22 @@
     <NavHeader />
 
     <div class="body-container">
-      <div class="left-container">
+      <transition name="fade" mode="out-in" appear :duration="{ enter: 500, leave: 500 }">
+        <div v-if="show" class="left-container">
 
-      </div>
-      <div class="right-container">
-      <Row type="flex" justify="center" class="code-row-bg">
-        <Col span="18">
+        </div>
+      </transition>
+      <div class="right-container" :style='`width:${width}`' style="min-width: 1024px;">
+        <Row type="flex" justify="center" class="code-row-bg">
+          <Col span="18">
           <div class="content-container">
-            <div v-for="item in articleList" class="article-item">
-              <img src="../../server/article/test/logo.png">
-              <h3>这是标题这是标题标这是标题这是标题标题这是标题这是标题标题这是标题这是标题标题题</h3>
+            <div v-for="item in articleList" :key="item._id" class="article-item">
+              <img :src="item.imgPath | imgSrc">
+              <h3>{{item.title}}</h3>
               <div class="introduction">
-                <p>  这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍
-                  这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍
-                  这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍
-                  这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍这是介绍
-                </p>
+                <p>{{item.intro}}</p>
               </div>
-              <p>发布时间：2017-11-12 </p>
+              <p>发布时间：{{item.time}} </p>
               <div class="read-button" @click="getArticleList">
                 <Button size="large" type="info">
                   阅读全文
@@ -28,17 +26,20 @@
                 </Button>
               </div>
             </div>
-
+            <div style="text-align: center">
+              <Page :total="total" :current="current" show-elevator @on-change="changePage"></Page>
+            </div>
           </div>
-        </Col>
-        <Col span="6">
-        <div class="sidebar-container"></div>
+
+          </Col>
+          <Col span="6">
+          <div class="sidebar-container"></div>
 
 
 
-        </Col>
-      </Row>
-    </div>
+          </Col>
+        </Row>
+      </div>
     </div>
 
 
@@ -57,25 +58,39 @@
     name: 'page-home',
     data() {
       return {
-        articleList: [
-          {
+        show: true,
+        width: document.documentElement.clientWidth + 'px',
+        articleList: [],
+        total: 1,
+        current: 1
 
 
-          }
-        ]
 
+
+
+
+      }
+    },
+    filters: {
+      imgSrc: function (path) {
+        var src = 'http://localhost:8888' + path.slice(6);
+        return src
       }
     },
     methods: {
       getArticleList: function () {
+
+      },
+      changePage: function (current) {
         this.$ajax.get('/article/list', {
-            params: {
-            page: 1
+          params: {
+            page: current,
+            limit: 10
           }
         })
           .then( res => {
-              console.log(res)
-
+            this.current = current;
+            this.articleList = res.data;
           })
           .catch( err => {
             console.log(err)
@@ -86,7 +101,33 @@
       NavHeader
     },
     mounted: function () {
-
+      const that =this
+      if (document.documentElement.clientWidth < 1050) {
+        this.show = false
+      }
+      window.onresize = function () {
+        that.width = document.documentElement.clientWidth + 'px';
+        if (document.documentElement.clientWidth < 1050) {
+          that.show = false
+        } else {
+          that.show = true
+        }
+      };
+      this.$ajax.get('/article/list', {
+        params: {
+          page: 1,
+          limit: 10
+        }
+      })
+        .then( res => {
+            console.log(res)
+          this.current = 1;
+          this.total = res.data.length;
+          this.articleList = res.data;
+        })
+        .catch( err => {
+          console.log(err)
+        });
 
     },
   }
@@ -105,12 +146,10 @@
         background: #2b85e4;
       }
       .right-container {
-        overflow: hidden;
-        height: 200px;
         .content-container {
-          height: 300px;
           margin: 0 30px;
           .article-item {
+            margin: 20px 0;
             position: relative;
             height: 200px;
             padding: 20px;
@@ -150,7 +189,7 @@
           background: #000000;
 
         }
-     }
+      }
 
     }
 
