@@ -3,12 +3,8 @@
     <NavHeader />
 
     <div class="body-container">
-      <transition name="fade" mode="out-in" appear :duration="{ enter: 500, leave: 500 }">
-        <div v-if="show" class="left-container">
-
-        </div>
-      </transition>
-      <div class="right-container" :style='`width:${width}`' style="min-width: 1024px;">
+      <LeftSide v-if="show" />
+      <div :class="{ leftActive: changeSize }" class="right-container" :style='`width:${width}`' style="min-width: 1024px;">
         <Row type="flex" justify="center" class="code-row-bg">
           <Col span="18">
           <div class="content-container">
@@ -18,32 +14,34 @@
               <div class="introduction">
                 <p>{{item.intro}}</p>
               </div>
-              <p>发布时间：{{item.time}} </p>
-              <div class="read-button" @click="getArticleList">
+              <p>
+                <span>发布时间：{{item.time}}</span>
+                <span style="padding-left: 20px;">分类于：
+                  <Tag v-if="item.cate === 1" color="blue">前端技术</Tag>
+                  <Tag v-if="item.cate === 2" color="green">后端技术</Tag>
+                  <Tag v-if="item.cate === 3" color="red">其他学习</Tag>
+                  <Tag v-if="item.cate === 4" color="yellow">生活杂文</Tag>
+                </span>
+              </p>
+              <router-link :to="{ path: '/home/' + item._id}" class="read-button">
                 <Button size="large" type="info">
                   阅读全文
                   <Icon type="chevron-right"></Icon>
                 </Button>
-              </div>
+              </router-link>
             </div>
-            <div style="text-align: center">
+            <div style="text-align: center;padding: 50px 0;">
               <Page :total="total" :current="current" show-elevator @on-change="changePage"></Page>
             </div>
           </div>
 
           </Col>
           <Col span="6">
-          <div class="sidebar-container"></div>
-
-
-
+            <RightSide />
           </Col>
         </Row>
       </div>
     </div>
-
-
-
 
 
 
@@ -53,20 +51,19 @@
 
 <script>
   import NavHeader from '../components/header.vue'
-
+  import LeftSide from '../components/left-sidebar.vue'
+  import RightSide from '../components/right-sidebar.vue'
   export default {
     name: 'page-home',
     data() {
       return {
+        searchStatus: false,
+        changeSize: true,
         show: true,
         width: document.documentElement.clientWidth + 'px',
         articleList: [],
         total: 1,
-        current: 1
-
-
-
-
+        current: 1,
 
 
       }
@@ -78,19 +75,32 @@
       }
     },
     methods: {
-      getArticleList: function () {
+      changeStatus (status) {
+        this.$Message.info('修仙模式：' + status);
+        if (status === true) {
+          this.sunshine = false;
+          localStorage.setItem('status', status);
+          this.$root.$el.style.background = '#122030';
+          this.$root.$el.style.color = '#fff'
+        } else {
+          this.sunshine = true;
+          localStorage.setItem('status', status);
+          this.$root.$el.style.background = '#fff';
+          this.$root.$el.style.color = '#2c3e50'
+        }
 
       },
       changePage: function (current) {
         this.$ajax.get('/article/list', {
-          params: {
-            page: current,
-            limit: 10
-          }
-        })
+            params: {
+              page: current,
+              limit: 10,
+              isActive: sessionStorage.getItem('id')
+            }
+          })
           .then( res => {
             this.current = current;
-            this.articleList = res.data;
+            this.articleList = res.data.list;
           })
           .catch( err => {
             console.log(err)
@@ -98,36 +108,61 @@
       }
     },
     components: {
-      NavHeader
+      NavHeader,
+      LeftSide,
+      RightSide
+    },
+    computed: {
+      list () {
+        //return this.$store.state.heightInner
+        return  this.$store.state.app.list
+      },
+    },
+    watch: {
+      list: function () {
+        this.current = 1;
+        this.total = this.$store.state.app.total;
+        this.articleList =this.$store.state.app.list;
+      }
     },
     mounted: function () {
-      const that =this
-      if (document.documentElement.clientWidth < 1050) {
+      const that =this;
+      if (document.documentElement.clientWidth < 1200) {
         this.show = false
       }
       window.onresize = function () {
         that.width = document.documentElement.clientWidth + 'px';
-        if (document.documentElement.clientWidth < 1050) {
-          that.show = false
+        if (document.documentElement.clientWidth < 1200) {
+          that.show = false;
+          that.changeSize = false
         } else {
-          that.show = true
+          that.show = true;
+          that.changeSize = true
         }
       };
-      this.$ajax.get('/article/list', {
-        params: {
-          page: 1,
-          limit: 10
-        }
-      })
-        .then( res => {
-            console.log(res)
-          this.current = 1;
-          this.total = res.data.length;
-          this.articleList = res.data;
-        })
-        .catch( err => {
-          console.log(err)
-        });
+      if (this.$route.query.search == 'search') {
+        this.current = 1;
+        this.total = this.$store.state.app.total;
+        this.articleList =this.$store.state.app.list;
+        history.replaceState(null, null, "/home?search=finish");
+      } else {
+        this.$ajax.get('/article/list', {
+            params: {
+              page: 1,
+              limit: 10,
+              isActive: sessionStorage.getItem('id')
+            }
+          })
+          .then( res => {
+            this.current = 1;
+            this.total = res.data.total;
+            this.articleList = res.data.list;
+          })
+          .catch( err => {
+            console.log(err)
+          });
+
+      }
 
     },
   }
@@ -135,19 +170,15 @@
 
 <style lang="scss">
   .page-home {
+    .leftActive {
+      padding-left: 300px;
+    }
     height: 100%;
     .body-container {
       height: 100%;
       padding-top: 60px;
-      .left-container {
-        float: left;
-        height: 100%;
-        width: 300px;
-        background: #2b85e4;
-      }
       .right-container {
         .content-container {
-          margin: 0 30px;
           .article-item {
             margin: 20px 0;
             position: relative;
@@ -179,19 +210,10 @@
               .ivu-btn-large {
                 width: 120px;
               }
-
             }
-
           }
         }
-        .sidebar-container {
-          height: 300px;
-          background: #000000;
-
-        }
       }
-
     }
-
   }
 </style>

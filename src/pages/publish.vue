@@ -10,6 +10,12 @@
             <Input v-model="title" placeholder="请输入..." style="width: 80%" />
           </div>
           <div class="block">
+            <span>选择分类：</span>
+            <Select v-model="cate" style="width:200px" @on-change="changeCate">
+              <Option v-for="item in classifyList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </Select>
+          </div>
+          <div class="block">
             <span>输入简介：</span>
             <div class="textarea">
               <Input v-model="intro" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..." />
@@ -77,11 +83,26 @@
         date: '',
         logo: '',
         check: 0,
-        previewUrl: ''
-
-
-
-
+        previewUrl: '',
+        classifyList: [
+          {
+            value: 1,
+            label: '前端技术'
+          },
+          {
+            value: 2,
+            label: '后端技术'
+          },
+          {
+            value: 3,
+            label: '其他学习'
+          },
+          {
+            value: 4,
+            label: '生活杂文'
+          }
+        ],
+        cate: ''
       }
     },
     computed: {
@@ -90,16 +111,27 @@
       }
     },
     methods: {
+      changeCate: function (val) {
+        console.log(val)
+        console.log(this.cate)
+      },
       close: function () {
         this.preview = false
       },
       submit: function () {
+        if (this.title == '' && this.intro == '' && this.input == '' && this.logo == '' && this.date == '' && this.cate == '') {
+          this.$Notice.warning({
+            title: '老铁...不要乱点提交'
+          });
+          return;
+        }
           this.$ajax.post('/article/publish', {
             title: this.title,
             intro: this.intro,
             content: this.input,
             imgPath: this.logo,
-            time: this.date
+            time: this.date,
+            cate: this.cate
           })
             .then( res => {
                 this.$Message.success('发布成功');

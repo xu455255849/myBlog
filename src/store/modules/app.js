@@ -1,42 +1,31 @@
 let state = {
   heightInner: document.documentElement.clientHeight + 'px',
   heightPatient: document.documentElement.clientHeight - 340 + 'px',
-  patientOneSum: '',
-  patientTwoSum: '',
-  patientThreeSum: '',
-  patientFourSum: '',
-  patientFiveSum: '',
-  count: '',
+  total: 1,
+  list: [],
+  activeId: 1
 
-}
+};
 
-let getters = {}
+let getters = {};
 
 let mutations = {
   comInner: state => state.heightInner = document.documentElement.clientHeight + 'px',
   comPatient: state => state.heightPatient = document.documentElement.clientHeight - 340 + 'px',
-  patientOneSum (state, sum) {
-    state.patientOneSum = sum
+  totalChange (state, total) {
+    state.total = total
   },
-  patientTwoSum (state, sum) {
-    state.patientTwoSum = sum
+  listChange (state, list) {
+    state.list = list
   },
-  patientThreeSum (state, sum) {
-    state.patientThreeSum = sum
-  },
-  patientFourSum (state, sum) {
-    state.patientFourSum = sum
-  },
-  patientFiveSum (state, sum) {
-    state.patientFiveSum = sum
-  },
-  count (state, sum) {
-    state.count = sum
+  menuChange (state, id) {
+    state.activeId = id
   }
 
-}
 
-let actions = {}
+};
+
+let actions = {};
 
 export default {
   state,

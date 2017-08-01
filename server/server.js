@@ -60,21 +60,7 @@ app.all('*', function(req, res, next) {
  */
 
 var db = require('mongoskin').db('mongodb://localhost:27017/blog');
-
-var insertData = function(db, callback) {
-  //连接到表 site
-  var collection = db.collection('site');
-  //插入数据
-  var data = [{"name":"菜鸟教程","url":"www.runoob.com"},{"name":"菜鸟工具","url":"c.runoob.com"}];
-  collection.insert(data, function(err, result) {
-    if(err)
-    {
-      console.log('Error:'+ err);
-      return;
-    }
-    callback(result);
-  });
-}
+var ObjectId = require('mongodb').ObjectID;
 
 /**
  * 图片上传
@@ -111,16 +97,53 @@ app.post('/article/publish', function (req, res) {
     intro: req.body.intro,
     content: req.body.content,
     imgPath: req.body.imgPath,
-    time: req.body.time
+    time: req.body.time,
+    cate: req.body.cate
   };
-  db.collection('articleList').insert(data, function(err, result) {
-    if(err)
-    {
-      res.end('Error:'+ err)
-    }
-    console.log(result)
-    res.end('操作成功')
-  });
+  switch (data.cate) {
+    case 1:
+      var col = db.collection('foreendList');
+      break;
+    case 2:
+      var col = db.collection('backendList');
+      break;
+    case 3:
+      var col = db.collection('otherList');
+      break;
+    case 4:
+      var col = db.collection('liveList');
+      break;
+
+  }
+  function runAsync1() {
+    var p = new Promise(function(resolve, reject) {
+      col.insert(data, function(err, result) {
+        if(err)
+        {
+          res.end('Error:'+ err)
+        }
+        resolve(1);
+      });
+    });
+    return p
+  }
+  function runAsync2() {
+    var p = new Promise(function(resolve, reject) {
+      db.collection('articleList').insert(data, function(err, result) {
+        if(err)
+        {
+          res.end('Error:'+ err)
+        }
+        resolve(1);
+      });
+    });
+    return p
+  }
+  Promise.all([runAsync1(), runAsync2()])
+    .then(function(result){
+      console.log(result);
+      res.end(JSON.stringify(data))
+    });
 });
 
 /**
@@ -130,25 +153,94 @@ app.get('/article/list', function (req, res) {
   var arg = qs.parse(url.parse(req.url).query);
   var page = Number.parseInt(arg.page) - 1;
   var limit = Number.parseInt(arg.limit);
-  var total = '';
-  var list;
-  
-  db.collection('articleList').find().toArray(function(err, result) {
-    if (err) throw err;
-    total = result.length
-  });
-  console.log(total)
-  db.collection('articleList').find().limit(limit).skip(page*limit).toArray(function(err, result) {
-    if (err) throw err;
-    list = result
-    res.end(JSON.stringify(list))
-  });
-  var data = {
-    list: list,
-    total: total
+  var menu = arg.isActive;
+  var search = arg.search;
+  switch (menu) {
+    case '1':
+      var col = db.collection('articleList');
+      break
+    case '2':
+      var col = db.collection('foreendList');
+      break
+    case '3':
+      var col = db.collection('backendList');
+      break
+    case '4':
+      var col = db.collection('otherList');
+      break
+    case '5':
+      var col = db.collection('liveList');
+      break
   }
- 
+
+  if (search === undefined) {
+    function runAsync1() {
+      var p = new Promise(function(resolve, reject) {
+        col.find().toArray(function(err, result) {
+          if (err) {
+            throw err;
+          }
+          resolve(result.length);
+        });
+      });
+      return p
+    }
+    function runAsync2() {
+      var p = new Promise(function(resolve, reject) {
+        col.find().sort({"time": -1}).limit(limit).skip(page*limit).toArray(function(err, result) {
+          if (err) throw err;
+          resolve(result);
+        });
+      });
+      return p
+    }
+  } else if (search !== undefined) {
+    function runAsync1() {
+      var p = new Promise(function(resolve, reject) {
+        col.find({"title": eval("/"+search+"/i") }).toArray(function(err, result) {
+          if (err) {
+            throw err;
+          }
+          resolve(result.length);
+        });
+      });
+      return p
+    }
+    function runAsync2() {
+      var p = new Promise(function(resolve, reject) {
+        col.find({"title": eval("/"+search+"/i") }).sort({"time": -1}).limit(limit).skip(page*limit).toArray(function(err, result) {
+          if (err) throw err;
+          resolve(result);
+        });
+      });
+      return p
+    }
+  }
+  Promise.all([runAsync1(), runAsync2()])
+      .then(function(result){
+        var data = {
+          total: result[0],
+          list: result[1]
+        };
+        console.log(data);
+        res.end(JSON.stringify(data))
+      });
 });
+
+/**
+ * 获取文章信息
+ */
+app.get('/article/info', function (req, res) {
+  var arg = qs.parse(url.parse(req.url).query);
+  var id = arg.id;
+  console.log(id)
+  db.collection('articleList').find({ "_id": ObjectId(id)}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result)
+    res.end(JSON.stringify(result))
+  });
+});
+
 
 
 
@@ -173,7 +265,7 @@ app.post('/login', function (req, res) {
   res.end(JSON.stringify(response));
   /*  var arg = url.parse(req.url).query;
    var sss = qs.parse(arg);*/
-  
+
   //var urlObj =  util.inspect(url.parse(req.url, true))
 });
 
