@@ -3,22 +3,23 @@
     <NavHeader />
 
     <div class="body-container">
-      <div class="left-container">
 
-      </div>
-
-      <div class="right-container"  style="min-width: 1024px;">
+      <div class="right-container" style="min-width: 1024px;">
         <Row type="flex" justify="center" class="code-row-bg">
-          <Col span="24">
+          <Col span="19">
             <div class="content-container">
               <h1>{{info.title}}</h1>
               <h6>发布日期：{{info.time}}</h6>
             </div>
             <div class="mark" v-html="html"></div>
           </Col>
+          <Col span="5">
+            <RightSide />
+          </Col>
 
         </Row>
       </div>
+      <Back-top></Back-top>
     </div>
 
 
@@ -32,6 +33,7 @@
 
 <script>
   import NavHeader from '../components/header.vue'
+  import RightSide from '../components/right-sidebar.vue'
   import Marked from 'marked'
   export default {
     name: 'page-article',
@@ -39,6 +41,7 @@
       return {
         info: '',
         html: '',
+
 
 
 
@@ -56,14 +59,17 @@
       }
     },
     methods: {
-      getArticleList: function () {
-
-      },
-
+      error (nodesc) {
+        this.$Notice.error({
+          title: '请求错误!!!',
+          desc: nodesc ? '' : '请输入正确的地址！！！'
+        });
+      }
     },
     components: {
       NavHeader,
-      Marked
+      Marked,
+      RightSide
     },
     mounted: function () {
       this.$ajax.get('/article/info', {
@@ -74,13 +80,11 @@
         .then( res => {
           this.info = res.data[0];
           this.html = Marked( res.data[0].content, { sanitize: true });
-
-          console.log(this.info)
         })
         .catch( err => {
+          this.error(false);
           console.log(err)
         });
-
     },
   }
 </script>
@@ -91,16 +95,8 @@
     .body-container {
       height: 100%;
       padding-top: 60px;
-      .left-container {
-        z-index: 2;
-        position: fixed;
-        height: 100%;
-        width: 300px;
-        background: #2b85e4;
-      }
       .right-container {
-        margin-left: 300px;
-        padding: 80px;
+        padding: 30px 0 30px 50px;
         .content-container {
           padding-bottom: 50px;
           h1,h6 {
@@ -108,9 +104,75 @@
           }
         }
         .mark {
+          font-size: 16px;
+          h1, h2, h3 {
+            text-align: center;
+            padding: 10px 0;
+          }
+          hr {
+            margin: 0 0 19px;
+            border: 0;
+            border-bottom: 1px solid #ccc;
+          }
+          blockquote {
+            padding: 13px 13px 21px 15px;
+            margin-bottom: 18px;
+            font-family:georgia,serif;
+            font-style: italic;
+          }
+          img {
+            display: block;
+          }
+          blockquote:before {
+            content:"\201C";
+            font-size:40px;
+            margin-left:-10px;
+            font-family:georgia,serif;
+            color:#6d7380;
+          }
+          blockquote p {
+            background: #8391a5;
+            color: #f9fafc;
+            font-size: 24px;
+            font-style: italic;
+          }
+          blockquote:after {
+            content:"\201C";
+            font-size:40px;
+            margin-left:-10px;
+            font-family:georgia,serif;
+            color:#6d7380;
+          }
+          code {
+            padding: 1px 3px;
+            font-size: 12px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+          }
+          pre {
+            display: block;
+            padding: 14px;
+            margin: 0 0 18px;
+            line-height: 16px;
+            font-size: 11px;
+            border: 1px solid #d9d9d9;
+            white-space: pre-wrap;
+            background-color: #1c2438;
+            word-wrap: break-word;
+          }
+          pre code {
+            color: #2baee9;
+            font-size: 11px;
+            padding: 0;
 
+          }
+          sup {
+            font-size: 0.83em;
+            vertical-align: super;
+            line-height: 0;
+          }
         }
-
       }
 
     }

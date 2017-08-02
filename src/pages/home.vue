@@ -1,7 +1,6 @@
 <template>
   <div class="page-home">
     <NavHeader />
-
     <div class="body-container">
       <LeftSide v-if="show" />
       <div :class="{ leftActive: changeSize }" class="right-container" :style='`width:${width}`' style="min-width: 1024px;">
@@ -75,21 +74,6 @@
       }
     },
     methods: {
-      changeStatus (status) {
-        this.$Message.info('修仙模式：' + status);
-        if (status === true) {
-          this.sunshine = false;
-          localStorage.setItem('status', status);
-          this.$root.$el.style.background = '#122030';
-          this.$root.$el.style.color = '#fff'
-        } else {
-          this.sunshine = true;
-          localStorage.setItem('status', status);
-          this.$root.$el.style.background = '#fff';
-          this.$root.$el.style.color = '#2c3e50'
-        }
-
-      },
       changePage: function (current) {
         this.$ajax.get('/article/list', {
             params: {
@@ -140,10 +124,14 @@
           that.changeSize = true
         }
       };
-      if (this.$route.query.search == 'search') {
+      if (this.$route.query.search == 'search' && this.$store.state.app.list.length !== 0) {
         this.current = 1;
         this.total = this.$store.state.app.total;
-        this.articleList =this.$store.state.app.list;
+        this.articleList = this.$store.state.app.list;
+        if (document.documentElement.clientWidth < 1200) {
+          this.show = false;
+          this.changeSize = false
+        }
         history.replaceState(null, null, "/home?search=finish");
       } else {
         this.$ajax.get('/article/list', {

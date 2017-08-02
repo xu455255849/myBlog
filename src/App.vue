@@ -6,7 +6,13 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+    }
+  },
+  mounted: function () {
+  }
 }
 </script>
 
@@ -17,7 +23,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   font-size: 14px;
-  min-height: 964px;
+  min-height: 1080px;
   width: 100%;
 }
 html, body {

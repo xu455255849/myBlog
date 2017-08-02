@@ -1,5 +1,5 @@
 <template>
-  <div class="page-start">
+  <div class="page-start" :style='`height:${height}`'>
     <div class="space">
       <div class="stars">
         <div class="star"></div>
@@ -8,11 +8,13 @@
         <div class="star yellow"></div>
       </div>
     </div>
-    <router-link to="/home">qweqweqw</router-link>
-    <canvas id=c></canvas>
-
+    <div class="login-button" @click="render">
+      <Button size="large" type="ghost">
+        探索星空
+        <Icon type="chevron-right"></Icon>
+      </Button>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -21,14 +23,73 @@ export default {
   name: 'page-start',
   data() {
     return {
-
-
+      username: localStorage.getItem('username') || '',
+      height: document.documentElement.clientHeight + 'px'
     }
   },
-  methods: {},
+  methods: {
+    render () {
+      if (localStorage.getItem('username') !== null) {
+        this.$Modal.confirm({
+          render: (h) => {
+            return h('Input', {
+              style: {
+                marginTop: '20px'
+              },
+              props: {
+                value: this.username,
+                autofocus: true,
+              },
+              on: {
+                input: (val) => {
+                  this.username = val;
+                }
+              }
+            })
+          },
+          onOk: ()=> {
+            if (this.username !== '' ) {
+              localStorage.setItem('username', this.username)
+              this.$router.push('home')
+            } else {
+              this.$Message.warning('无名是我的！！');
+            }
+          },
+          title: '继续旅程'
+        })
+      } else {
+        this.$Modal.confirm({
+          render: (h) => {
+            return h('Input', {
+              style: {
+                marginTop: '20px'
+              },
+              props: {
+                value: this.username,
+                autofocus: true,
+                placeholder: '勇者，告诉我你的名字'
+              },
+              on: {
+                input: (val) => {
+                  this.username = val;
+                }
+              }
+            })
+          },
+          onOk: ()=> {
+            if (this.username !== '' ) {
+              localStorage.setItem('username', this.username)
+              this.$router.push('home')
+            } else {
+              this.$Message.warning('无名是我的！！');
+            }
+          },
+          title: '开启征程'
+        })
+      }
+    }
+  },
   mounted: function () {
-
-
 
   },
 }
@@ -36,13 +97,35 @@ export default {
 
 <style lang="scss">
 .page-start {
-  height: 100%;
+  min-height: 1080px;
+  .login-button {
+    position: absolute;
+    z-index: 2;
+    top: 700px;
+    left: 40%;
+    opacity: 0.5;
+    animation: btn linear 2s infinite;
+  }
+  .login-button:hover {
+    animation-play-state: paused;
+  }
+  @keyframes btn {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+
+  }
+  background: {
+    image: url("../assets/start.jpg");
+    size: 100% 100%;
+  }
   .space {
     width: 100%;
     height: 100%;
-    background: #121212;
   }
-
   .crater1,
   .crater2,
   .crater3,
@@ -81,7 +164,7 @@ export default {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #FFF;
+    background: greenyellow;
     top: 100px;
     left: 400px;
     position: relative;

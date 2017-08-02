@@ -12,7 +12,6 @@ Vue.prototype.$ajax = axios
 Vue.use(iView)
 
 
-
 /**
  * url地址修改 home &&
  * @type {string}

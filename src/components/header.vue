@@ -22,8 +22,8 @@
           <span>术</span>
         </li>
         <li :class="{ active: isActive === 4}" @click="onchange(4)">
-          <span>其</span>
-          <span>他</span>
+          <span>兴</span>
+          <span>趣</span>
           <span>学</span>
           <span>习</span>
         </li>
@@ -32,6 +32,11 @@
           <span>活</span>
           <span>杂</span>
           <span>文</span>
+        </li>
+        <li :class="{ active: isActive === 6}" @click="onchange(6)">
+          <span>留</span>
+          <span>言</span>
+          <span>板</span>
         </li>
       </ul>
       <Input v-model="searchPara" @on-enter="search" @on-click="search" icon="ios-search" placeholder="文章搜索" style="width: 200px;float: right;opacity: 0.5" />
@@ -54,29 +59,33 @@
       onchange: function (id) {
         this.isActive = id;
         sessionStorage.setItem('id',  id);
-        this.$ajax.get('/article/list', {
-            params: {
-              page: 1,
-              limit: 10,
-              isActive: id
-            }
-          })
-          .then( res => {
-            if (res.data.total === 0) {
-              this.$Message.info('老铁...抱歉...没有这篇文章');
-            } else {
-              this.$store.commit('totalChange', res.data.total);
-              this.$store.commit('listChange', res.data.list);
-              if (this.$route.name !== 'home') {
-                this.$router.push({ name: 'home', query: { search: 'search' } });
+        if (id !== 6) {
+          this.$ajax.get('/article/list', {
+              params: {
+                page: 1,
+                limit: 10,
+                isActive: id
               }
-            }
-            console.log(this.$store.state.app.list)
-            console.log(this.$store.state.app.total)
-          })
-          .catch( err => {
-            console.log(err)
-          });
+            })
+            .then( res => {
+              if (res.data.total === 0) {
+                this.$Message.info('老铁...抱歉...没有这篇文章');
+              } else {
+                this.$store.commit('totalChange', res.data.total);
+                this.$store.commit('listChange', res.data.list);
+                if (this.$route.name !== 'home') {
+                  this.$router.push({ name: 'home', query: { search: 'search' } });
+                }
+              }
+            })
+            .catch( err => {
+              console.log(err)
+              this.$Message.info('老铁...服务器好像挂了');
+            });
+        } else {
+          this.$router.push({ name: 'messageBoard'})
+        }
+
       },
       search: function () {
         if (this.searchPara == '') {
@@ -103,24 +112,13 @@
             })
             .catch( err => {
               console.log(err)
+              this.$Message.info('老铁...服务器好像挂了');
             });
         }
-      },
-      login: function () {
-        this.$ajax.post( '/login', {
-          username: this.username,
-          password: this.password
-        })
-          .then( res => {
-
-          })
-          .catch( err => {
-            console.log(err)
-          });
       }
     },
     mounted: function () {
-      console.log()
+
     },
   }
 </script>
@@ -192,9 +190,8 @@
         margin: 5px 50px 0 0;
         width: 50px;
         float: left;
+        opacity: 0.8;
       }
     }
-
-
   }
 </style>

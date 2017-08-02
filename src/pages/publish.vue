@@ -27,7 +27,7 @@
           <p style="padding-bottom: 20px;text-align: center;font-size: 24px;">文章内容编辑</p>
           <div id="editor">
             <textarea v-model="input"></textarea>
-            <div v-html="compiledMarkdown"></div>
+            <div class="markdown" v-html="compiledMarkdown"></div>
           </div>
         </div>
         <p style="padding-bottom: 30px;text-align: center;font-size: 24px;">文章LOGO照片上传</p>
@@ -125,7 +125,7 @@
           });
           return;
         }
-          this.$ajax.post('/article/publish', {
+        this.$ajax.post('/article/publish', {
             title: this.title,
             intro: this.intro,
             content: this.input,
@@ -133,15 +133,15 @@
             time: this.date,
             cate: this.cate
           })
-            .then( res => {
-                this.$Message.success('发布成功');
-                setTimeout(function () {
-                    location.reload()
-                }, 2000)
-            })
-            .catch( err => {
-              console.log(err)
-            });
+          .then( res => {
+            this.$Message.success('发布成功');
+            setTimeout(function () {
+              location.reload()
+            }, 2000)
+          })
+          .catch( err => {
+            console.log(err)
+          });
 
       },
       handleSuccess (res, file) {
@@ -177,8 +177,8 @@
       handleRemove: function (file) {
         console.log(file.response.filename);
         this.$ajax.post('/image/delete', {
-          path: file.response.path
-        })
+            path: file.response.path
+          })
           .then( res => {
             this.check --
           })
@@ -235,7 +235,77 @@
         margin-bottom: 100px;
         #editor {
           height: 500px;
-          font-family: 'Helvetica Neue', Arial, sans-serif;
+          padding: 20px 0;
+        }
+        .markdown {
+          font-size: 16px;
+          h1, h2, h3 {
+            text-align: center;
+            padding: 10px 0;
+          }
+          hr {
+            margin: 0 0 19px;
+            border: 0;
+            border-bottom: 1px solid #ccc;
+          }
+          blockquote {
+            padding: 13px 13px 21px 15px;
+            margin-bottom: 18px;
+            font-family:georgia,serif;
+            font-style: italic;
+          }
+          img {
+            display: block;
+          }
+          blockquote:before {
+            content:"\201C";
+            font-size:40px;
+            margin-left:-10px;
+            font-family:georgia,serif;
+            color:#6d7380;
+          }
+          blockquote p {
+            background: #8391a5;
+            color: #f9fafc;
+            font-size: 24px;
+            font-style: italic;
+          }
+          blockquote:after {
+            content:"\201C";
+            font-size:40px;
+            margin-left:-10px;
+            font-family:georgia,serif;
+            color:#6d7380;
+          }
+          code {
+            padding: 1px 3px;
+            font-size: 12px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+          }
+          pre {
+            display: block;
+            padding: 14px;
+            margin: 0 0 18px;
+            line-height: 16px;
+            font-size: 11px;
+            border: 1px solid #d9d9d9;
+            white-space: pre-wrap;
+            background-color: #1c2438;
+            word-wrap: break-word;
+          }
+          pre code {
+            color: #2baee9;
+            font-size: 11px;
+            padding: 0;
+
+          }
+          sup {
+            font-size: 0.83em;
+            vertical-align: super;
+            line-height: 0;
+          }
         }
         textarea, #editor div {
           display: inline-block;
@@ -244,7 +314,7 @@
           overflow: auto;
           vertical-align: top;
           box-sizing: border-box;
-          padding: 0 20px;
+          padding: 20px;
         }
         textarea {
           border: none;

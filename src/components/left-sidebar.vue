@@ -39,14 +39,16 @@
 
 <style lang="scss">
   .component-left-side {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    color: #fff;
+    background: {
+      image: url("../assets/bg-left-v_02.png");
+      repeat: no-repeat;
+      size: 100% 100%;
+    };
     .left-container {
-      position: fixed;
-      width: 300px;
-      /*  background: {
-          image: url("../assets/bg-left.gif");
-          repeat: no-repeat;
-          size: 100% 100%;
-        };*/
       .you-self {
         width: 200px;
         margin: 0 auto;
@@ -56,6 +58,7 @@
           width: 100px;
           margin: 20px auto;
           display: block;
+          opacity: 0.6;
         }
       }
       .tag {

@@ -241,6 +241,21 @@ app.get('/article/info', function (req, res) {
   });
 });
 
+/**
+ * 获取留言板内容
+ */
+app.get('/board', function (req, res) {
+  var arg = qs.parse(url.parse(req.url).query);
+  var id = arg.id;
+  console.log(id)
+  db.collection('articleList').find({ "_id": ObjectId(id)}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result)
+    res.end(JSON.stringify(result))
+  });
+});
+
+
 
 
 
