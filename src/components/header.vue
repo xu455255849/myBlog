@@ -1,7 +1,13 @@
 <template>
   <div class="page-head">
     <div class="header">
-      <img src="../assets/tou.png"/>
+      <VueAplayer autoplay :music="{
+    title: 'Preparation',
+    author: 'Hans Zimmer/Richard Harvey',
+    url: 'http://devtest.qiniudn.com/Preparation.mp3',
+    pic: 'http://devtest.qiniudn.com/Preparation.jpg',
+    lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
+  }"></VueAplayer>
       <ul>
         <li :class="{ active: isActive === 1}" @click="onchange(1)">
           <span>最</span>
@@ -46,7 +52,7 @@
 </template>
 
 <script>
-
+  import VueAplayer from 'vue-aplayer'
   export default {
     name: 'page-head',
     data() {
@@ -115,7 +121,10 @@
               this.$Message.info('老铁...服务器好像挂了');
             });
         }
-      }
+      },
+    },
+    components: {
+      VueAplayer
     },
     mounted: function () {
 

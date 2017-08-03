@@ -1,5 +1,5 @@
 <template>
-  <div class="page-home">
+  <div class="page-board">
     <NavHeader />
     <div class="body-container">
       <LeftSide v-if="show" />
@@ -8,6 +8,19 @@
           <Col span="18">
           <div class="content-container">
             <div class="comment-container">
+              <h3 style="text-align: center;padding-bottom: 20px;">告示</h3>
+              <Input v-model="message" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="大佬，有话请讲......" />
+
+              <div style="text-align: center;margin: 50px 0;" @click="submit">
+                <Button size="large" type="error">
+                  清空内容
+                  <Icon type="chevron-right"></Icon>
+                </Button>
+                <Button size="large" type="success">
+                  发表评论
+                  <Icon type="chevron-right"></Icon>
+                </Button>
+              </div>
 
             </div>
 
@@ -39,13 +52,13 @@
   import LeftSide from '../components/left-sidebar.vue'
   import RightSide from '../components/right-sidebar.vue'
   export default {
-    name: 'page-home',
+    name: 'page-board',
     data() {
       return {
         changeSize: true,
         show: true,
         width: document.documentElement.clientWidth + 'px',
-
+        message: '',
         items: [{},,,,,,,,,]
 
 
@@ -88,13 +101,10 @@
       },
     },
     watch: {
-      list: function () {
-        this.current = 1;
-        this.total = this.$store.state.app.total;
-        this.articleList =this.$store.state.app.list;
-      }
+
     },
     mounted: function () {
+      setTimeout
       const that =this;
       if (document.documentElement.clientWidth < 1200) {
         this.show = false
@@ -131,42 +141,40 @@
 </script>
 
 <style lang="scss">
-  .page-home {
-    .leftActive {
-      padding-left: 300px;
-    }
+  .page-board {
+  .leftActive {
+    padding-left: 300px;
+  }
+  height: 100%;
+  .body-container {
     height: 100%;
-    .body-container {
-      height: 100%;
-      padding-top: 60px;
-      .right-container {
-        .comment-container {
-          height: 200px;
-          margin-bottom: 20px;
-          background: #2baee9;
-        }
-        .content-container {
-          padding: 30px 50px;
-          .name {
-            font-size: 18px;
-            position: relative;
-            border-bottom: 1px solid #8391a5;
-            top: -5px;
-            span {
-              font-size: 12px;
-            }
-            span:last-child {
-              margin-left: 20px;
-              font-size: 14px;
-            }
-          }
-          .content {
-            font-size: 14px;
-            padding: 5px;
-          }
+    padding-top: 60px;
+  .right-container {
+  .comment-container {
+    margin-bottom: 20px;
+  }
+  .content-container {
+    padding: 30px 50px;
+  .name {
+    font-size: 18px;
+    position: relative;
+    border-bottom: 1px solid #8391a5;
+    top: -5px;
+  span {
+    font-size: 12px;
+  }
+  span:last-child {
+    margin-left: 20px;
+    font-size: 14px;
+  }
+  }
+  .content {
+    font-size: 14px;
+    padding: 5px;
+  }
 
-        }
-      }
-    }
+  }
+  }
+  }
   }
 </style>
