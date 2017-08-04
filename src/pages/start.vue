@@ -50,7 +50,7 @@ export default {
           onOk: ()=> {
             if (this.username !== '' ) {
               localStorage.setItem('username', this.username)
-              this.$router.push('home')
+              this.$router.push({name: 'list'})
             } else {
               this.$Message.warning('无名是我的！！');
             }
@@ -79,7 +79,7 @@ export default {
           onOk: ()=> {
             if (this.username !== '' ) {
               localStorage.setItem('username', this.username)
-              this.$router.push('home')
+              this.$router.push({name: 'list'})
             } else {
               this.$Message.warning('无名是我的！！');
             }
@@ -116,7 +116,6 @@ export default {
     to {
       transform: rotate(360deg);
     }
-
   }
   background: {
     image: url("../assets/start.jpg");

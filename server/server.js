@@ -244,14 +244,30 @@ app.get('/article/info', function (req, res) {
 /**
  * 获取留言板内容
  */
-app.get('/board', function (req, res) {
-  var arg = qs.parse(url.parse(req.url).query);
-  var id = arg.id;
-  console.log(id)
-  db.collection('articleList').find({ "_id": ObjectId(id)}).toArray(function(err, result) {
+app.get('/board/get', function (req, res) {
+  db.collection('board').find().sort({"position": -1}).toArray(function(err, result) {
     if (err) throw err;
     console.log(result)
     res.end(JSON.stringify(result))
+  });
+});
+
+/**
+ * 提交留言信息
+ */
+app.post('/board/post', function (req, res) {
+  var data = {
+    date: req.body.date,
+    name: req.body.name,
+    content: req.body.content,
+    time: req.body.time,
+    position: req.body.position
+  };
+  db.collection('board').insert(data, function(err, result) {
+    if(err) {
+      res.end('Error:'+ err)
+    }
+    res.end('提交成功')
   });
 });
 

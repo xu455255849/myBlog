@@ -202,8 +202,7 @@
       if (day < 10) {
         day = '0' + day
       }
-      this.date = year + '-' + month + '-' + day
-      console.log(this.date)
+      this.date = year + '-' + month + '-' + day;
 
     },
     components: {Marked},

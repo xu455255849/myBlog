@@ -1,13 +1,7 @@
 <template>
   <div class="page-head">
     <div class="header">
-      <VueAplayer autoplay :music="{
-    title: 'Preparation',
-    author: 'Hans Zimmer/Richard Harvey',
-    url: 'http://devtest.qiniudn.com/Preparation.mp3',
-    pic: 'http://devtest.qiniudn.com/Preparation.jpg',
-    lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
-  }"></VueAplayer>
+      <img src="../assets/tou.png">
       <ul>
         <li :class="{ active: isActive === 1}" @click="onchange(1)">
           <span>最</span>
@@ -52,7 +46,7 @@
 </template>
 
 <script>
-  import VueAplayer from 'vue-aplayer'
+
   export default {
     name: 'page-head',
     data() {
@@ -79,8 +73,8 @@
               } else {
                 this.$store.commit('totalChange', res.data.total);
                 this.$store.commit('listChange', res.data.list);
-                if (this.$route.name !== 'home') {
-                  this.$router.push({ name: 'home', query: { search: 'search' } });
+                if (this.$route.name !== 'list') {
+                  this.$router.push({ name: 'list', query: { search: 'search' } });
                 }
               }
             })
@@ -89,7 +83,7 @@
               this.$Message.info('老铁...服务器好像挂了');
             });
         } else {
-          this.$router.push({ name: 'messageBoard'})
+          this.$router.push({ name: 'board'})
         }
 
       },
@@ -111,8 +105,8 @@
               } else {
                 this.$store.commit('totalChange', res.data.total);
                 this.$store.commit('listChange', res.data.list);
-                if (this.$route.name !== 'home') {
-                  this.$router.push({ name: 'home', query: { search: 'search' } });
+                if (this.$route.name !== 'list') {
+                  this.$router.push({ name: 'list', query: { search: 'search' } });
                 }
               }
             })
@@ -123,9 +117,7 @@
         }
       },
     },
-    components: {
-      VueAplayer
-    },
+
     mounted: function () {
 
     },
@@ -156,6 +148,10 @@
     width: 100%;
     min-width: 1024px;
     background: url("../assets/bg-nav.jpg");
+    .music-block {
+      position: absolute;
+      height: 60px;
+    }
     .header {
       width: 80%;
       margin: 0 auto;
@@ -199,7 +195,7 @@
         margin: 5px 50px 0 0;
         width: 50px;
         float: left;
-        opacity: 0.8;
+        opacity: 0.5;
       }
     }
   }

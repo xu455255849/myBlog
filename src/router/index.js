@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Start from '../pages/start.vue'
 import Home from  '../pages/home.vue'
+import List from '../pages/list.vue'
 import Publish from '../pages/publish.vue'
 import Article from  '../pages/article.vue'
 import messageBoard from '../pages/message-board.vue'
@@ -27,7 +28,33 @@ const router = new Router({
       meta: {
         requireAuth: true,
       },
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: 'list',
+          name: 'list',
+          meta: {
+            requireAuth: true,
+          },
+          component: List
+        },
+        {
+          path: 'board',
+          name: 'board',
+          meta: {
+            requireAuth: true,
+          },
+          component: messageBoard
+        },
+        {
+          path: ':id',
+          name: 'article',
+          meta: {
+            requireAuth: true,
+          },
+          component: Article
+        },
+      ]
     },
     {
       path: '/publish',
@@ -37,25 +64,6 @@ const router = new Router({
       },
       component: Publish
     },
-    {
-      path: '/home/:id',
-      name: 'article',
-      meta: {
-        requireAuth: true,
-      },
-      component: Article
-    },
-    {
-      path: '/board',
-      name: 'messageBoard',
-      meta: {
-        requireAuth: true,
-      },
-      component: messageBoard
-    },
-
-
-
   ]
 });
 

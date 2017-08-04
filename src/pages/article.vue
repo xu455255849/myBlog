@@ -1,33 +1,25 @@
 <template>
   <div class="page-article">
-    <NavHeader />
-
     <div class="body-container">
-
       <div class="right-container" style="min-width: 1024px;">
         <Row type="flex" justify="center" class="code-row-bg">
-          <Col span="19">
+          <Col span="24">
             <div class="content-container">
               <h1>{{info.title}}</h1>
               <h6>发布日期：{{info.time}}</h6>
             </div>
             <div class="mark" v-html="html"></div>
           </Col>
-          <Col span="5">
-            <RightSide />
-          </Col>
-
         </Row>
+
       </div>
-      <Back-top></Back-top>
+      <div class="back" @click="back">
+        <Button size="large" type="ghost">
+          <Icon type="chevron-left"></Icon>
+          返回列表
+        </Button>
+      </div>
     </div>
-
-
-
-
-
-
-
   </div>
 </template>
 
@@ -41,14 +33,6 @@
       return {
         info: '',
         html: '',
-
-
-
-
-
-
-
-
 
       }
     },
@@ -64,6 +48,9 @@
           title: '请求错误!!!',
           desc: nodesc ? '' : '请输入正确的地址！！！'
         });
+      },
+      back: function () {
+          history.back()
       }
     },
     components: {
@@ -94,7 +81,7 @@
     height: 100%;
     .body-container {
       height: 100%;
-      padding-top: 60px;
+      padding-top: 20px;
       .right-container {
         padding: 30px 0 30px 50px;
         .content-container {
@@ -174,8 +161,11 @@
           }
         }
       }
-
     }
-
+    .back {
+      position: fixed;
+      right: 50px;
+      bottom: 50px;
+    }
   }
 </style>
