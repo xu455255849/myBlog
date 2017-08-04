@@ -31,21 +31,19 @@ var upload = multer({
 var express = require('express');
 var app = express();
 
-
-
-
 app.use(bodyParser.json());
 
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
 app.use(express.static(path.resolve(__dirname, '../dist')))
 app.use(express.static('public'));
 // 因为是单页应用 所有请求都走/dist/index.html
-app.get('/', function(req, res) {
+app.get('／', function(req, res) {
   const html = fs.readFile(path.resolve(__dirname, '../dist/index.html'), 'utf-8')
   res.send(html)
-})
+});
 
 
+/*
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -53,6 +51,7 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "content-type");
   next();
 });
+*/
 
 
 /**

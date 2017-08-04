@@ -92,7 +92,7 @@
             params: {
               page: 1,
               limit: 10,
-              isActive: sessionStorage.getItem('id')
+              isActive: sessionStorage.getItem('id') || 1
             }
           })
           .then( res => {
