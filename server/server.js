@@ -38,7 +38,7 @@ app.use(express.static(path.resolve(__dirname, '../dist')))
 app.use(express.static('public'));
 // 因为是单页应用 所有请求都走/dist/index.html
 app.get('／', function(req, res) {
-  const html = fs.readFile(path.resolve(__dirname, '../dist/index.html'), 'utf-8')
+  const html = fs.readFile(path.resolve(__dirname, '../dist/index.html'), 'utf-8');
   res.send(html)
 });
 
