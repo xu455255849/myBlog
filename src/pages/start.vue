@@ -85,7 +85,8 @@ export default {
             if (this.username !== '' ) {
                 if (this.username === '徐绍平') {
                     localStorage.setItem('username', this.username);
-                    sessionStorage.setItem('admin', true)
+                    sessionStorage.setItem('admin', true);
+                    localStorage.setItem('xx', 'open')
                 } else {
                   localStorage.setItem('username', this.username)
                 }
