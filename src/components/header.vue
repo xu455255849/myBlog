@@ -54,7 +54,7 @@
       return {
         searchPara: '',
         isActive: Number(sessionStorage.getItem('id')) || 1,
-        admin: sessionStorage.getItem('admin')
+        admin: localStorage.getItem('username') === '徐绍平'
       }
     },
     methods: {
