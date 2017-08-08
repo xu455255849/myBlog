@@ -49,7 +49,12 @@ export default {
           },
           onOk: ()=> {
             if (this.username !== '' ) {
-              localStorage.setItem('username', this.username)
+              if (this.username === '徐绍平') {
+                localStorage.setItem('username', this.username);
+                sessionStorage.setItem('admin', true)
+              } else {
+                localStorage.setItem('username', this.username)
+              }
               this.$router.push({name: 'list'})
             } else {
               this.$Message.warning('无名是我的！！');
@@ -78,7 +83,12 @@ export default {
           },
           onOk: ()=> {
             if (this.username !== '' ) {
-              localStorage.setItem('username', this.username)
+                if (this.username === '徐绍平') {
+                    localStorage.setItem('username', this.username);
+                    sessionStorage.setItem('admin', true)
+                } else {
+                  localStorage.setItem('username', this.username)
+                }
               this.$router.push({name: 'list'})
             } else {
               this.$Message.warning('无名是我的！！');

@@ -1,7 +1,8 @@
 <template>
   <div class="page-head">
     <div class="header">
-      <img src="../assets/tou.png">
+      <img v-if="admin" src="../assets/tou.png" style="cursor: pointer" @click="publish" />
+      <img v-else src="../assets/tou.png" />
       <ul>
         <li :class="{ active: isActive === 1}" @click="onchange(1)">
           <span>最</span>
@@ -52,10 +53,14 @@
     data() {
       return {
         searchPara: '',
-        isActive: Number(sessionStorage.getItem('id')) || 1
+        isActive: Number(sessionStorage.getItem('id')) || 1,
+        admin: sessionStorage.getItem('admin')
       }
     },
     methods: {
+      publish: function () {
+          this.$router.push({ name: 'publish'})
+      },
       onchange: function (id) {
         this.isActive = id;
         sessionStorage.setItem('id',  id);
@@ -117,7 +122,6 @@
         }
       },
     },
-
     mounted: function () {
 
     },
