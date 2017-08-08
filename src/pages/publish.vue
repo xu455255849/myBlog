@@ -34,7 +34,7 @@
         <Upload
           ref="upload"
           type="drag"
-          action="//localhost:8888/upload"
+          action="//106.14.205.222:8080/upload"
           :format="['jpg','jpeg','png']"
           :on-success="handleSuccess"
           :max-size="2048"

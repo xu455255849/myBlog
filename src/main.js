@@ -13,7 +13,7 @@ Vue.use(iView)
 
 
 /**
- * url地址修改 home &&
+ * url地址修改 list && message  && publish
  * @type {string}
  */
 
