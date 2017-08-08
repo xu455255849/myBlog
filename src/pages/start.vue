@@ -50,7 +50,7 @@ export default {
           onOk: ()=> {
             if (this.username !== '' ) {
               localStorage.setItem('username', this.username);
-              this.$router.push({name: 'list'})
+              this.$router.push({name: 'publish'})
             } else {
               this.$Message.warning('无名是我的！！');
             }
