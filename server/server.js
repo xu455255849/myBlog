@@ -44,7 +44,7 @@ app.get('／', function(req, res) {
 
 
 app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", 'http://106.14.205.222:8080');
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Content-Type", "application/json;charset=utf-8");
   res.header("Access-Control-Allow-Headers", "content-type");
