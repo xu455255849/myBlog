@@ -242,6 +242,9 @@
             padding: 30px 0;
             text-indent: 28px;
           }
+          p {
+            text-indent: 28px;
+          }
           hr {
             margin: 0 0 19px;
             border: 0;
