@@ -107,7 +107,7 @@
     },
     computed: {
       compiledMarkdown: function () {
-        return Marked(this.input, { sanitize: true })
+        return Marked(this.input)
       }
     },
     methods: {
@@ -239,8 +239,8 @@
         .markdown {
           font-size: 16px;
           h1, h2, h3 {
-            text-align: center;
-            padding: 10px 0;
+            padding: 30px 0;
+            text-indent: 28px;
           }
           hr {
             margin: 0 0 19px;

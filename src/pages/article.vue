@@ -1,7 +1,7 @@
 <template>
   <div class="page-article">
     <div class="body-container">
-      <div class="right-container" style="min-width: 1024px;">
+      <div class="right-container">
         <Row type="flex" justify="center" class="code-row-bg">
           <Col span="24">
             <div class="content-container">
@@ -66,7 +66,7 @@
       })
         .then( res => {
           this.info = res.data[0];
-          this.html = Marked( res.data[0].content, { sanitize: true });
+          this.html = Marked(res.data[0].content);
         })
         .catch( err => {
           this.error(false);
