@@ -8,6 +8,8 @@ var http = require('http');
 var url = require('url');
 var util = require('util');
 var path = require('path');
+var history = require('connect-history-api-fallback');
+var connect = require('connect');
 
 // 引入处理post数据的模块
 var qs = require('querystring');
@@ -30,6 +32,7 @@ var upload = multer({
 
 var express = require('express');
 var app = express();
+app.use(history());
 
 app.use(bodyParser.json());
 
@@ -42,7 +45,6 @@ app.get('／', function(req, res) {
   res.send(html)
 });
 
-
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -50,8 +52,6 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "content-type");
   next();
 });
-
-
 
 /**
  * 请求接口 ／／／／／／／／／／／／／／链接数据库
