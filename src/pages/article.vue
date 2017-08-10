@@ -99,6 +99,9 @@
           p {
             text-indent: 28px;
           }
+          ul, ol {
+            list-style: gurmukhi;
+          }
           hr {
             margin: 0 0 19px;
             border: 0;
@@ -168,6 +171,7 @@
     .back {
       position: fixed;
       right: 50px;
+      z-index: 999;
       bottom: 50px;
     }
   }
