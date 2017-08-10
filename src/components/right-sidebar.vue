@@ -26,8 +26,8 @@
         option: {
           title: '光るなら',
           author: 'Goose house',
-          url: require('../assets/m.mp3'),
-          pic: require('../assets/bg-music.jpg'),
+          url: require('../assets/Akie秋绘 - 天ノ弱.mp3'),
+          pic: require('../assets/bg-mus.jpg'),
           lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
         }
       }
