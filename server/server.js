@@ -44,15 +44,6 @@ app.get('／', function(req, res) {
   res.send(html)
 });
 
-//处理404\500错误
-app.use(function(req, res, next) {
-  res.status(404).send('Sorry cant find that!');
-});
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -277,20 +268,12 @@ app.post('/board/post', function (req, res) {
   });
 });
 
-
-
-
-
-
 app.get('/list', function (req, res) {
   // 输出 JSON 格式
   var arg = qs.parse(url.parse(req.url).query);
   console.log(arg.page)
   res.end('qweqwe');
 });
-
-
-
 
 app.post('/login', function (req, res) {
   // 输出 JSON 格式
@@ -304,6 +287,15 @@ app.post('/login', function (req, res) {
    var sss = qs.parse(arg);*/
 
   //var urlObj =  util.inspect(url.parse(req.url, true))
+});
+
+//处理404\500错误
+app.use(function(req, res, next) {
+  res.status(404).send('Sorry cant find that!');
+});
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 var server = app.listen(8080, function () {
