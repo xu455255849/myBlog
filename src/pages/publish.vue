@@ -36,6 +36,7 @@
           type="drag"
           action="//106.14.205.222:8080/image/upload"
           :format="['jpg','jpeg','png']"
+          :headers="heads"
           :on-success="handleSuccess"
           :max-size="2048"
           :on-format-error="handleFormatError"
@@ -76,6 +77,9 @@
     name: 'page-publish',
     data() {
       return {
+        heads: {
+            "Content-Security-Policy": "img-src *"
+        },
         preview: false,
         title: '',
         intro: '',
