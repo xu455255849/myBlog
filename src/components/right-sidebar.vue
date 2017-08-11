@@ -24,8 +24,8 @@
         switch1: false,
         sunshine: true,
         option: {
-          title: '光るなら',
-          author: 'Goose house',
+          title: '天ノ弱',
+          author: 'Akie秋绘',
           url: require('../assets/Akie秋绘 - 天ノ弱.mp3'),
           pic: require('../assets/bg-mus.jpg'),
           lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
