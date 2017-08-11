@@ -6,7 +6,6 @@
 var fs = require('fs');
 var http = require('http');
 var url = require('url');
-var util = require('util');
 var path = require('path');
 var history = require('connect-history-api-fallback');
 var connect = require('connect');
@@ -37,7 +36,7 @@ app.use(history());
 app.use(bodyParser.json());
 
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
-app.use(express.static(path.resolve(__dirname, '../dist')))
+app.use(express.static(path.resolve(__dirname, '../dist')));
 app.use(express.static('public'));
 
 
@@ -276,9 +275,6 @@ app.post('/board/post', function (req, res) {
   console.log(arg.page)
   res.end('qweqwe');
 });
-
-
-
 
 app.post('/login', function (req, res) {
   // 输出 JSON 格式

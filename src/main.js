@@ -8,8 +8,8 @@ import axios from 'axios'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
-Vue.prototype.$ajax = axios
-Vue.use(iView)
+Vue.prototype.$ajax = axios;
+Vue.use(iView);
 
 
 /**
@@ -17,12 +17,12 @@ Vue.use(iView)
  * @type {string}
  */
 
-axios.defaults.baseURL = 'http://pingshao.wang:8080';
+axios.defaults.baseURL = 'http://106.14.205.222:8080';
 //axios.defaults.baseURL = 'http://localhost:8080';
 //axios.defaults.headers =  {'Authorization':'Bearer '+ sessionStorage.getItem('token')}
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -31,4 +31,4 @@ new Vue({
   store,
   template: '<App/>',
   components: { App }
-})
+});
