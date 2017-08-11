@@ -26,7 +26,7 @@
         option: {
           title: '天ノ弱',
           author: 'Akie秋绘',
-          url: require('../assets/Akie秋绘 - 天ノ弱.mp3'),
+          url: require('../assets/n.mp3'),
           pic: require('../assets/bg-mus.jpg'),
           lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
         }
