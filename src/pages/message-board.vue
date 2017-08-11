@@ -42,7 +42,7 @@
     },
     filters: {
       imgSrc: function (path) {
-        var src = 'http://106.14.205.222:8080' + path.slice(6);
+        var src = 'http://pingshao.wang:8080' + path.slice(6);
         return src
       }
     },
