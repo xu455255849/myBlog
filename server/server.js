@@ -268,6 +268,7 @@ app.post('/board/post', function (req, res) {
   });
 });
 
+/*
 app.get('/list', function (req, res) {
   // 输出 JSON 格式
   var arg = qs.parse(url.parse(req.url).query);
@@ -283,20 +284,11 @@ app.post('/login', function (req, res) {
   };
   console.log(response);
   res.end(JSON.stringify(response));
-  /*  var arg = url.parse(req.url).query;
-   var sss = qs.parse(arg);*/
+  /!*  var arg = url.parse(req.url).query;
+   var sss = qs.parse(arg);*!/
 
   //var urlObj =  util.inspect(url.parse(req.url, true))
-});
-
-//处理404\500错误
-app.use(function(req, res, next) {
-  res.status(404).send('Sorry cant find that!');
-});
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
+});*/
 
 var server = app.listen(8080, function () {
 
@@ -306,4 +298,3 @@ var server = app.listen(8080, function () {
   console.log("应用实例，访问地址为 http://%s:%s", host, port)
 
 });
-
