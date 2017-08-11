@@ -34,7 +34,7 @@
         <Upload
           ref="upload"
           type="drag"
-          action="//pingshao.wang/:8080/upload"
+          action="//106.14.205.222:8080/upload"
           :format="['jpg','jpeg','png']"
           :on-success="handleSuccess"
           :max-size="2048"
@@ -60,7 +60,7 @@
            title="LOGO预览"
     >
       <div style="text-align:center">
-        <img :src="previewUrl" />
+        <img style="width: 100%" :src="previewUrl" />
       </div>
       <div slot="footer">
         <Button type="error" size="large" long  @click="close">关闭</Button>
