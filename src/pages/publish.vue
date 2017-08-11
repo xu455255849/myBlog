@@ -60,7 +60,7 @@
            title="LOGO预览"
     >
       <div style="text-align:center">
-        <img style="width: 100%" :src="previewUrl" />
+        <img s :src="previewUrl" />
       </div>
       <div slot="footer">
         <Button type="error" size="large" long  @click="close">关闭</Button>
