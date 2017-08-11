@@ -6,6 +6,7 @@
 var fs = require('fs');
 var http = require('http');
 var url = require('url');
+var util = require('util');
 var path = require('path');
 var history = require('connect-history-api-fallback');
 var connect = require('connect');
@@ -38,16 +39,11 @@ app.use(bodyParser.json());
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
 app.use(express.static(path.resolve(__dirname, '../dist')))
 app.use(express.static('public'));
-// 因为是单页应用 所有请求都走/dist/index.html
-app.get('／', function(req, res) {
-  const html = fs.readFile(path.resolve(__dirname, '../dist/index.html'), 'utf-8');
-  res.send(html)
-});
+
 
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Content-Type", "application/json;charset=utf-8");
   res.header("Access-Control-Allow-Headers", "content-type");
   next();
 });
@@ -59,16 +55,22 @@ app.all('*', function(req, res, next) {
 var db = require('mongoskin').db('mongodb://localhost:27017/blog');
 var ObjectId = require('mongodb').ObjectID;
 
+// 因为是单页应用 所有请求都走/dist/index.html
+app.get('／', function(req, res) {
+  const html = fs.readFile(path.resolve(__dirname, '../dist/index.html'), 'utf-8');
+  res.send(html)
+});
+
 /**
  * 图片上传
  */
 app.post('/upload', function (req, res) {
   upload(req, res, function (err) {
     if (err) {
-      console.log(err)
+      res.end(err);
       return
     }
-    console.log(req.file)
+    console.log(req.file);
     res.end(JSON.stringify(req.file))
   })
 });
@@ -268,13 +270,15 @@ app.post('/board/post', function (req, res) {
   });
 });
 
-/*
-app.get('/list', function (req, res) {
+/*app.get('/list', function (req, res) {
   // 输出 JSON 格式
   var arg = qs.parse(url.parse(req.url).query);
   console.log(arg.page)
   res.end('qweqwe');
 });
+
+
+
 
 app.post('/login', function (req, res) {
   // 输出 JSON 格式
@@ -298,3 +302,4 @@ var server = app.listen(8080, function () {
   console.log("应用实例，访问地址为 http://%s:%s", host, port)
 
 });
+
