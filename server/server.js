@@ -37,7 +37,7 @@ app.use(history());
 app.use(bodyParser.json());
 
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
-app.use(express.static(path.resolve(__dirname, '../dist')))
+app.use(express.static(path.resolve(__dirname, '../dist')));
 app.use(express.static('public'));
 // 因为是单页应用 所有请求都走/dist/index.html
 app.get('／', function(req, res) {
@@ -63,13 +63,13 @@ var ObjectId = require('mongodb').ObjectID;
 /**
  * 图片上传
  */
-app.post('/upload', function (req, res) {
+app.post('/image/upload', function (req, res) {
   upload(req, res, function (err) {
     if (err) {
-      console.log(err)
+      res.end(JSON.stringify(err));
       return
     }
-    console.log(req.file)
+    console.log(req.file);
     res.end(JSON.stringify(req.file))
   })
 });
