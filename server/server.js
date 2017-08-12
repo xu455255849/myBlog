@@ -50,7 +50,7 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Content-Type", "application/json;charset=utf-8");
   res.header("Access-Control-Allow-Headers", "content-type");
-  res.header("Content-Security-Policy", "default-src 'self' img-src * data")
+  //res.header("Content-Security-Policy", "default-src 'self' img-src * data")
   next();
 });
 
