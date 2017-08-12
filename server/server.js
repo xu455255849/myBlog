@@ -6,7 +6,6 @@
 var fs = require('fs');
 var http = require('http');
 var url = require('url');
-var util = require('util');
 var path = require('path');
 var history = require('connect-history-api-fallback');
 var connect = require('connect');
