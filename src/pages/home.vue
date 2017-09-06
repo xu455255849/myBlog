@@ -3,7 +3,7 @@
     <NavHeader />
     <div class="body-container">
       <LeftSide v-if="show" />
-      <div :class="{ leftActive: changeSize }" :style='`width:${width}`' style="min-width: 1024px;">
+      <div :class="{ leftActive: changeSize }" :style='{ width: width, minHeight: height}' style="min-width: 1024px;">
         <Row type="flex" justify="center" class="code-row-bg">
           <Col span="18">
             <transition>
@@ -32,6 +32,7 @@
         changeSize: true,
         show: true,
         width: document.documentElement.clientWidth + 'px',
+        height: document.documentElement.clientHeight - 60 + 'px'
       }
     },
 

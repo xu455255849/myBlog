@@ -23,11 +23,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   font-size: 14px;
-  min-height: 1080px;
   width: 100%;
 }
 html, body {
-  height: 100%;
+  min-width: 1024px;
   width: 100%;
 }
 

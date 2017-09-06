@@ -23,6 +23,7 @@
     "multer": "^1.3.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
+    "three": "^0.87.1",
     "vue": "^2.3.3",
     "vue-aplayer": "^0.1.1",
     "vue-router": "^2.6.0",
