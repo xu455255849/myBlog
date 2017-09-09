@@ -58,6 +58,26 @@
       Marked,
       RightSide
     },
+    watch: {
+        '$route.params.id': function () {
+            console.log(this.$route.params.id)
+          if (this.$route.params.id !== undefined) {
+            this.$ajax.get('/article/info', {
+              params: {
+                id: this.$route.params.id
+              }
+            })
+            .then( res => {
+              this.info = res.data[0];
+              this.html = Marked(res.data[0].content);
+            })
+            .catch( err => {
+              this.error(false);
+              console.log(err)
+            });
+          }
+        }
+    },
     mounted: function () {
       this.$ajax.get('/article/info', {
         params: {
