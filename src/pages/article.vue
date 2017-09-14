@@ -99,6 +99,7 @@
 <style lang="scss">
   .page-article {
     height: 100%;
+    margin-bottom: 50px;
     .body-container {
       height: 100%;
       padding-top: 20px;
