@@ -72,6 +72,7 @@ router.beforeEach((to, from, next) => {
     if (localStorage.getItem('username') !== null) {
       next();
     } else {
+      alert('勇者，show me your name')
       next({
         path: '/'
       })
