@@ -136,7 +136,7 @@
           .then( res => {
             this.$Message.success('发布成功');
             setTimeout(function () {
-              location.reload()
+              this.$router.push({name: 'list'})
             }, 2000)
           })
           .catch( err => {
