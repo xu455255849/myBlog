@@ -57,7 +57,7 @@ app.all('*', function(req, res, next) {
  * 请求接口 ／／／／／／／／／／／／／／链接数据库
  */
 
-var db = require('mongoskin').db('mongodb://xu:1314loveWMM@106.14.205.222:27017/blog?authSource=admin');
+var db = require('mongoskin').db('mongodb://xu:1314loveWMM@localhost:27017/blog?authSource=admin');
 var ObjectId = require('mongodb').ObjectID;
 
 /**
