@@ -1,6 +1,6 @@
 # blog
 
-> A Vue.js project
+> 博客源码～ 在线地址  http://pingshao.wang:8080/
 
 ## Build Setup
 
