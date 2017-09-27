@@ -248,16 +248,16 @@ app.post('/article/del', function (req, res) {
   console.log(id)
   console.log(typeof (cate))
   switch (cate) {
-    case '1':
+    case 1:
       var col = db.collection('foreendList');
       break
-    case '2':
+    case 2:
       var col = db.collection('backendList');
       break
-    case '3':
+    case 3:
       var col = db.collection('otherList');
       break
-    case '4':
+    case 4:
       var col = db.collection('liveList');
       break
   }
