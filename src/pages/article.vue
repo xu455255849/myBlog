@@ -13,6 +13,11 @@
         </Row>
 
       </div>
+      <div v-if="admin" class="delete" @click="del">
+        <Button size="large" type="error">
+          删除文章
+        </Button>
+      </div>
       <div class="back" @click="back">
         <Button size="large" type="ghost">
           <Icon type="chevron-left"></Icon>
@@ -20,6 +25,13 @@
         </Button>
       </div>
     </div>
+    <Modal
+      v-model="modal1"
+      :closable="false"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      是否确认删除文章?
+    </Modal>
   </div>
 </template>
 
@@ -31,8 +43,10 @@
     name: 'page-article',
     data() {
       return {
+        modal1: false,
         info: '',
         html: '',
+        admin: localStorage.getItem('username') === '徐绍平'
 
       }
     },
@@ -43,6 +57,37 @@
       }
     },
     methods: {
+      ok () {
+          //删除数据库
+        this.$ajax.post('/article/del',
+          {
+              id: this.$route.params.id,
+              cate: this.info.cate
+        })
+        .then( res => {
+            console.log(res)
+        })
+        .catch( err => {
+          console.log(err)
+        });
+        
+        //删除服务器图片
+        this.$ajax.post('/image/delete', {
+          path: this.info.imgPath
+        })
+        .then( res => {
+          console.log(res)
+        })
+        .catch( err => {
+          console.log(err)
+        });
+      },
+      cancel () {
+        this.modal1 = false
+      },
+      del: function () {
+          this.modal1 = true
+      },
       error (nodesc) {
         this.$Notice.error({
           title: '请求错误!!!',
@@ -97,6 +142,11 @@
 </script>
 
 <style lang="scss">
+  .ivu-modal-body {
+    text-align: center !important;
+    font-size: 18px !important;
+    color: red;
+  }
   .page-article {
     height: 100%;
     margin-bottom: 50px;
@@ -188,6 +238,12 @@
           }
         }
       }
+    }
+    .delete {
+      position: fixed;
+      right: 50px;
+      z-index: 999;
+      bottom: 100px;
     }
     .back {
       position: fixed;

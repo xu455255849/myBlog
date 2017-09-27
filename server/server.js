@@ -238,6 +238,47 @@ app.get('/article/info', function (req, res) {
     res.end(JSON.stringify(result))
   });
 });
+/**
+ * 删除文章
+ */
+app.post('/article/del', function (req, res) {
+  var id = req.body.id,
+    cate = req.body.cate
+  
+  switch (cate) {
+    case '1':
+      var col = db.collection('foreendList');
+      break
+    case '2':
+      var col = db.collection('backendList');
+      break
+    case '3':
+      var col = db.collection('otherList');
+      break
+    case '4':
+      var col = db.collection('liveList');
+      break
+  }
+  function runAsync1() {
+    var p = new Promise(function(resolve, reject) {
+      db.collection('articleList').remove({"_id": id}, true);
+      resolve('success');
+    });
+    return p
+  }
+  function runAsync2() {
+    var p = new Promise(function(resolve, reject) {
+      col.remove({"_id": id}, true);
+      resolve('success');
+    });
+    return p
+  }
+  Promise.all([runAsync1(), runAsync2()])
+  .then(function(result){
+    res.end(JSON.stringify(result))
+  });
+});
+
 
 /**
  * 获取留言板内容
