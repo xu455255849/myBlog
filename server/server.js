@@ -271,7 +271,7 @@ app.post('/article/del', function (req, res) {
   function runAsync2() {
     var p = new Promise(function(resolve, reject) {
       col.remove({"_id": ObjectId(id)}, true);
-      resolve(1);
+      resolve(2);
     });
     return p
   }
