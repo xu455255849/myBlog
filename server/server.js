@@ -263,14 +263,14 @@ app.post('/article/del', function (req, res) {
   }
   function runAsync1() {
     var p = new Promise(function(resolve, reject) {
-      db.collection('articleList').remove({"_id": id}, true);
+      db.collection('articleList').remove({"_id": ObjectId(id)}, true);
       resolve(1);
     });
     return p
   }
   function runAsync2() {
     var p = new Promise(function(resolve, reject) {
-      col.remove({"_id": id}, true);
+      col.remove({"_id": ObjectId(id)}, true);
       resolve(1);
     });
     return p
