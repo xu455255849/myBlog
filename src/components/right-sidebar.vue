@@ -11,6 +11,12 @@
       <div class="music-block">
         <VueAplayer ref="music" :music="option" @play="play" @pause="stop"></VueAplayer>
       </div>
+      <Card style="cursor:pointer;">
+        <a class="jian-book" href="http://www.jianshu.com/u/c7ddff3cd237" target="_blank">
+          <img src="../assets/jianshu.png" />
+          <h3>关注我</h3>
+        </a>
+      </Card>
     </div>
   </div>
 </template>
@@ -81,14 +87,18 @@
       }
       .music-block {
         margin: 20px 0;
-        height: 150px;
+        height: 66px;
         .aplayer-pic {
-          border-radius: 50%;
           background: {
             size: 100% 100%;
             repeat: no-repeat;
           }
         }
+      }
+      .jian-book {
+        text-align:center;
+        display: block;
+        background: linear-gradient(to right, deepskyblue, ghostwhite, deepskyblue);
       }
     }
   }

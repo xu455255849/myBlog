@@ -4,7 +4,7 @@
       <div class="left-container">
         <div class="you-self">
           <img src="../assets/tou.png"/>
-          <h3>前端切图仔</h3>
+          <h3>不止前端</h3>
           <p style="padding: 20px 0">所谓星空,不就是黑夜中的一点光芒汇聚而成的吗</p>
         </div>
         <div class="tag">

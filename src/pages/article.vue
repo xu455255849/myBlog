@@ -65,22 +65,24 @@
               cate: this.info.cate
         })
         .then( res => {
-            console.log(res)
+          this.$Message.info('删除成功');
+          //删除服务器图片
+          this.$ajax.post('/image/delete', {
+            path: this.info.imgPath
+          })
+          .then( res => {
+              console.log(res)
+          })
+          .catch( err => {
+            console.log(err)
+          });
+          setTimeout( ()=> {
+            this.$router.replace({name: 'list'})
+          }, 2000)
         })
         .catch( err => {
-          console.log(err)
+          this.$Message.info('服务器出错');
         });
-        
-        //删除服务器图片
-     /*   this.$ajax.post('/image/delete', {
-          path: this.info.imgPath
-        })
-        .then( res => {
-          console.log(res)
-        })
-        .catch( err => {
-          console.log(err)
-        });*/
       },
       cancel () {
         this.modal1 = false

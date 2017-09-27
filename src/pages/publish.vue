@@ -135,8 +135,8 @@
           })
           .then( res => {
             this.$Message.success('发布成功');
-            setTimeout(function () {
-              this.$router.push({name: 'list'})
+            setTimeout( ()=> {
+              this.$router.replace({name: 'list'})
             }, 2000)
           })
           .catch( err => {

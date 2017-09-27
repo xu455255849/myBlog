@@ -238,15 +238,13 @@ app.get('/article/info', function (req, res) {
     res.end(JSON.stringify(result))
   });
 });
+
 /**
  * 删除文章
  */
 app.post('/article/del', function (req, res) {
   var id = req.body.id,
     cate = req.body.cate
-  
-  console.log(id)
-  console.log(typeof (cate))
   switch (cate) {
     case 1:
       var col = db.collection('foreendList');
@@ -280,7 +278,6 @@ app.post('/article/del', function (req, res) {
     res.end(JSON.stringify(result))
   });
 });
-
 
 /**
  * 获取留言板内容
