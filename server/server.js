@@ -245,6 +245,8 @@ app.post('/article/del', function (req, res) {
   var id = req.body.id,
     cate = req.body.cate
   
+  console.log(id)
+  console.log(cate)
   switch (cate) {
     case '1':
       var col = db.collection('foreendList');
@@ -262,14 +264,14 @@ app.post('/article/del', function (req, res) {
   function runAsync1() {
     var p = new Promise(function(resolve, reject) {
       db.collection('articleList').remove({"_id": id}, true);
-      resolve('success');
+      resolve(1);
     });
     return p
   }
   function runAsync2() {
     var p = new Promise(function(resolve, reject) {
       col.remove({"_id": id}, true);
-      resolve('success');
+      resolve(1);
     });
     return p
   }

@@ -72,7 +72,7 @@
         });
         
         //删除服务器图片
-        this.$ajax.post('/image/delete', {
+     /*   this.$ajax.post('/image/delete', {
           path: this.info.imgPath
         })
         .then( res => {
@@ -80,7 +80,7 @@
         })
         .catch( err => {
           console.log(err)
-        });
+        });*/
       },
       cancel () {
         this.modal1 = false
