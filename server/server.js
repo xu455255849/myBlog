@@ -246,7 +246,7 @@ app.post('/article/del', function (req, res) {
     cate = req.body.cate
   
   console.log(id)
-  console.log(cate)
+  console.log(typeof (cate))
   switch (cate) {
     case '1':
       var col = db.collection('foreendList');
