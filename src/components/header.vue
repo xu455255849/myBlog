@@ -123,7 +123,11 @@
       },
     },
     mounted: function () {
-
+      window.onkeyup =  (e)=> {
+        if(e && e.keyCode==13){
+         this.search()
+        }
+      }
     },
   }
 </script>

@@ -1,7 +1,8 @@
 <template>
   <div class="page-list">
     <div class="content-container">
-      <div v-for="item in articleList" :key="item._id" class="article-item">
+      <transition-group name="list-complete" tag="div">
+      <div v-for="item in articleList" :key="item._id" class="article-item list-complete-item" >
         <img :src="item.imgPath | imgSrc">
         <h3>{{item.title}}</h3>
         <div class="introduction">
@@ -23,6 +24,7 @@
           </Button>
         </router-link>
       </div>
+      </transition-group>
       <div style="text-align: center;padding: 50px 0;">
         <Page :total="total" :current="current" show-elevator @on-change="changePage"></Page>
       </div>
@@ -77,7 +79,6 @@
       }
     },
     mounted: function () {
-
       if (this.$route.query.search == 'search' && this.$store.state.app.list.length !== 0) {
         this.current = 1;
         this.total = this.$store.state.app.total;
@@ -110,6 +111,18 @@
 </script>
 
 <style lang="scss">
+  .list-complete-item {
+    transition: all 2s;
+    display: block;
+  }
+  .list-complete-enter, .list-complete-leave-to
+    /* .list-complete-leave-active for below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .list-complete-leave-active {
+    position: absolute;
+  }
   .page-list {
     .content-container {
       .article-item {

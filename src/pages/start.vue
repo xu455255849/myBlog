@@ -85,8 +85,6 @@ export default {
     }
   },
   mounted: function () {
-  
-   
     const scen = new THREE.Scene();
     console.log(scen)
   
