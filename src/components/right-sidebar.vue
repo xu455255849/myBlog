@@ -11,7 +11,7 @@
       <div class="music-block">
         <VueAplayer ref="music" :music="option" @play="play" @pause="stop"></VueAplayer>
       </div>
-      <Card style="cursor:pointer;">
+      <Card style="cursor:pointer; background: linear-gradient(to right, deepskyblue, ghostwhite, deepskyblue);">
         <a class="jian-book" href="http://www.jianshu.com/u/c7ddff3cd237" target="_blank">
           <img src="../assets/jianshu.png" />
           <h3>关注我</h3>
@@ -98,7 +98,6 @@
       .jian-book {
         text-align:center;
         display: block;
-        background: linear-gradient(to right, deepskyblue, ghostwhite, deepskyblue);
       }
     }
   }
