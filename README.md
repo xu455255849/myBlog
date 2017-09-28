@@ -2,29 +2,8 @@
 
 > 博客源码～ 在线地址  http://pingshao.wang:8080/
 
-## Build Setup
+本博客同步简书更新，起初还是类似学习笔记一样的东西，方便自己回头重温，后来想想写都写了，还是找个地方分享出去。
 
-``` bash
-# install dependencies
-npm install
+我的简书地址： http://www.jianshu.com/u/c7ddff3cd237
 
-# serve with hot reload at localhost:8080
-npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
