@@ -32,6 +32,16 @@
       @on-cancel="cancel">
       是否确认删除文章?
     </Modal>
+    <Modal v-model="preview"
+           width="100%"
+           :closable="false"
+    >
+      <span slot="header"></span>
+      <div style="text-align:center;cursor: pointer" @click="close">
+        <img style="width: 100%" :src="previewUrl" />
+      </div>
+      <span slot="footer"></span>
+    </Modal>
   </div>
 </template>
 
@@ -44,9 +54,11 @@
     data() {
       return {
         modal1: false,
+        preview: false,
+        previewUrl: '',
         info: '',
         html: '',
-        admin: localStorage.getItem('username') === '徐绍平'
+        admin: false  //localStorage.getItem('username') === '徐绍平'   关闭删除功能
 
       }
     },
@@ -57,6 +69,9 @@
       }
     },
     methods: {
+      close: function () {
+        this.preview = false
+      },
       ok () {
           //删除数据库
         this.$ajax.post('/article/del',
@@ -126,6 +141,16 @@
         }
     },
     mounted: function () {
+        setTimeout(()=> {
+          document.querySelector('.page-article').querySelectorAll('img').forEach((it)=> {
+            it.onclick = ()=> {
+                this.previewUrl = it.src
+              this.preview = true
+            }
+          });
+        }, 2000)
+      
+      
       this.$ajax.get('/article/info', {
         params: {
           id: this.$route.params.id
@@ -133,7 +158,9 @@
       })
         .then( res => {
           this.info = res.data[0];
-          this.html = Marked(res.data[0].content);
+          
+          this.html =  Marked(res.data[0].content)
+          
         })
         .catch( err => {
           this.error(false);
@@ -188,6 +215,8 @@
           }
           img {
             display: block;
+            width: 100%;
+            cursor: pointer;
           }
           blockquote:before {
             content:"\201C";
