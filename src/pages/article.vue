@@ -58,14 +58,8 @@
         previewUrl: '',
         info: '',
         html: '',
-        admin: false  //localStorage.getItem('username') === '徐绍平'   关闭删除功能
+        admin: false  //设置一个简易的加密来给特殊的用户删除文章的权限 //localStorage.getItem('username') === 'xxxx'
 
-      }
-    },
-    filters: {
-      imgSrc: function (path) {
-        var src = 'http://localhost:8888' + path.slice(6);
-        return src
       }
     },
     methods: {

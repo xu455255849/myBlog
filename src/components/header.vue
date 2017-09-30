@@ -54,7 +54,7 @@
       return {
         searchPara: '',
         isActive: Number(sessionStorage.getItem('id')) || 1,
-        admin: localStorage.getItem('username') === '徐绍平'
+        admin: false  //设置一个简易的加密来给特殊的用户发布文章的权限
       }
     },
     methods: {
