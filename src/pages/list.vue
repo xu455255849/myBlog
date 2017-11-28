@@ -28,6 +28,10 @@
       <div style="text-align: center;padding: 50px 0;">
         <Page :total="total" :current="current" show-elevator @on-change="changePage"></Page>
       </div>
+      <div class="foot">
+        <span style="margin-right: 20px">Copyright © 2017 Xu</span>
+        <span>浙ICP备 17048882号</span>
+      </div>
     </div>
   </div>
 </template>
@@ -157,6 +161,12 @@
             width: 120px;
           }
         }
+      }
+      .foot {
+        background: silver;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
       }
     }
   }
