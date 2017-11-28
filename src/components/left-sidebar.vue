@@ -23,22 +23,12 @@
 
   export default {
     name: 'component-left-side',
-    data() {
-      return {
-
-      }
-    },
-    methods: {
-
-    },
-    mounted: function () {
-
-    },
   }
 </script>
 
 <style lang="scss">
   .component-left-side {
+    z-index: 3;
     position: fixed;
     width: 300px;
     height: 100%;
