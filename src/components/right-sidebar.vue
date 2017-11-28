@@ -30,10 +30,10 @@
         switch1: false,
         sunshine: true,
         option: {
-          title: 'アスノヨゾラ哨戒班',
-          author: 'Akie秋绘,夏璃夜 ',
-          url: require('../assets/aki.mp3'),
-          pic: require('../assets/aki.jpg'),
+          title: '鱼玄机',
+          author: '',
+          url: require('../assets/yu.mp3'),
+          pic: require('../assets/yu.jpg'),
           lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
         }
       }
