@@ -30,9 +30,9 @@
         switch1: false,
         sunshine: true,
         option: {
-          title: '鱼玄机',
-          author: '',
-          url: require('../assets/yu.mp3'),
+          title: '世末歌者',
+          author: '双笙,囧菌',
+          url: require('../assets/shi.mp3'),
           pic: require('../assets/yu.jpg'),
           lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
         }
