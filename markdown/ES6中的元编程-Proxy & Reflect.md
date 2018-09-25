@@ -92,6 +92,37 @@ document.addEventListener('scroll', handlerProxy);
 
 该实例通过proxy的handler.apply()拦截了函数调用，当只有时间超过1s时候函数才会再次被调用
 
+###图片懒加载
+```
+ const IMG_LOAD = 'https://img.alicdn.com/tfs/TB11rDdclLoK1RjSZFuXXXn0XXa-300-300.png';
+  
+  const imageProxy = (loadingImg) => {
+    return new Proxy(Image, {
+      construct(target, args){
+        const instance = Reflect.construct(target, args);
+        instance.src = loadingImg;
+        return instance;
+      }
+    });
+  };
+  const ImageProxy = imageProxy(IMG_LOAD);
+
+  const createImageProxy = (realImg) =>{
+    const img = new ImageProxy();
+    const virtualImg = new Image();
+    virtualImg.src = realImg;
+    virtualImg.onload = () => {
+      hasLoaded = true;
+      img.src = realImg;
+    };
+    return img;
+  }
+  var img = createImageProxy('https://cdn.dribbble.com/users/329207/screenshots/5289734/bemocs_db_dribbble_03_gold_leaf.jpg');
+  document.body.appendChild(img);
+
+```
+通过proxy构造默认Image对象，在加载完成时替换默认图片
+
 ### 单例模式
 
 ```
