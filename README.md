@@ -1,6 +1,6 @@
 # blog
 
-> 博客源码～ 在线地址  http://pingshao.wang
+> 博客源码～ 在线地址  http://pingshao.wang （服务器被阿里云回首了，无法访问）
 
 本博客第一次访问速度较慢，服务器小水管，见谅，缓存后 之后速度会变的正常。
 
@@ -8,11 +8,15 @@
 
 我的简书地址： http://www.jianshu.com/u/c7ddff3cd237
 博客园： http://www.cnblogs.com/buzhiqianduan/
+segmentfault ：https://segmentfault.com/u/xu455255849
+
 
 ps：博客通过简易加密判断用户名，开启文章推送和删除文章功能
 
 
 ### 更新记录 (时间轴从下往上)
+
+以后开始用issues发文章
 
 服务器到期了，网站不再更新，文章同步发布博客园和简书
 
